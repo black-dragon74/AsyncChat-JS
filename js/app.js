@@ -12,6 +12,9 @@ const nullChar = '';
 let questionID = 1;
 let handler = 'http://localhost/AsyncChat-JS/inc-php/handler.php';
 
+// Function definitions
+const fetchQuestion = 'fetchQuestion';
+
 // Set to 0 to disable debug logs
 const debug = 1;
 
@@ -24,14 +27,15 @@ function dbgLog(msg){
 }
 
 // sendAsync sends a XML-HTTP asynchronous request that communicates with back-end and updates the UI.
-function sendAsync(questionID, msg, idContent, idTime=lCTime){
+function sendAsync(questionID, msg, idContent, idTime=lCTime, functionToCall){
     dbgLog('Send Async called');
     $.ajax({
         url: handler,
         data: {
             'asyncValid': 'yes',
             'questionID': questionID,
-            'cMessage': msg
+            'cMessage': msg,
+            'functionToCall': functionToCall
         },
         type: 'post',
         success: function (response) {
@@ -71,7 +75,7 @@ $(document).ready(function () {
     });
 
     // Propagate the question, 1st Async call is automatic and is called onLoad
-    sendAsync(questionID, 'dummy', lCContent);
+    sendAsync(questionID, 'dummy', lCContent, undefined, fetchQuestion);
 
     // Handle the form submissions using AJAX
     $(lCSubmit).on('click', function (e) {
@@ -88,7 +92,7 @@ $(document).ready(function () {
         // Handle submissions via AJAX, recheck for null, prevent possible XSS
         if (msg !== nullChar){
             dbgLog('Preparing AJAX submission with response: '+msg);
-            sendAsync(++questionID, msg, lCContent);
+            sendAsync(++questionID, msg, lCContent, undefined, fetchQuestion);
             // After this, update the text box
             $(lCMessage).val(nullChar);
             $(lCMessage).focus();
