@@ -16,15 +16,23 @@ $questionID = $_POST['questionID'];
 $postMessage = $_POST['cMessage'];
 $callerFunction = $_POST['functionToCall'];
 
-// Trash invalid requests
-if (!$isValid){
-    die('Invalid Async');
-}
+//// Trash invalid requests
+//if (!$isValid){
+//    die('Invalid Async');
+//}
+//
+//// Should have a UID
+//if (!$_POST['uid']){
+//    die('UID not found.');
+//}
 
 // Check and call the functions
 switch ($callerFunction){
     case 'fetchQuestion':
         fetchQuestionFromID($conn, $questionID);
+        break;
+    case 'fetchAndStore':
+        fetchAndStore($conn, $questionID);
         break;
     default:
         break;
@@ -56,4 +64,25 @@ function fetchQuestionFromID($conn, $questionID){
     $response = json_encode($resultSet);
 
     echo $response;
+
+    // Finish
+    return;
+}
+
+function fetchAndStore($conn, $questionID){
+    fetchQuestionFromID($conn, $questionID); // This will also send the response back to the server
+
+    // Now we start to store the answers into the database
+    $questionID--; // Logically
+    $sDB = 'submissions';
+    $uid = $_POST['uid'];
+    $response = $_POST['cMessage'];
+    $query = "insert into $sDB values (NULL, '$uid', '$questionID', '$response');";
+
+    // Attempt to store
+    mysqli_query($conn, $query);
+
+    // Finish
+    return;
+    
 }
