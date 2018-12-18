@@ -22,14 +22,14 @@
     <div class="chat">
         <div class="chat-history">
             <div class="chat-message clearfix">
-                <img src="img/av.jpeg" alt="" width="32" height="32">
+                <img src="img/bot.png" alt="" width="32" height="32">
 
                 <div class="chat-message-content clearfix">
                     <span class="chat-time" id="live-chat-time">13:35</span>
 
                     <h5>Feed Bot</h5>
 
-                    <p id="live-chat-content">I'll be replaced by AJAX. Some dummy content so that I can check the margins.</p>
+                    <p id="live-chat-content">I you see me, well you're doomed as your server is not working.</p>
                 </div>
             </div>
             <hr>
