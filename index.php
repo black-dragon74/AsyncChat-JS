@@ -29,7 +29,7 @@
 
                     <h5>Feed Bot</h5>
 
-                    <p id="live-chat-content">I you see me, well you're doomed as your server is not working.</p>
+                    <p id="live-chat-content">If you see me, well you're doomed as your server is not working.</p>
                 </div>
             </div>
             <hr>
