@@ -16,15 +16,15 @@ $questionID = $_POST['questionID'];
 $postMessage = $_POST['cMessage'];
 $callerFunction = $_POST['functionToCall'];
 
-//// Trash invalid requests
-//if (!$isValid){
-//    die('Invalid Async');
-//}
-//
-//// Should have a UID
-//if (!$_POST['uid']){
-//    die('UID not found.');
-//}
+// Trash invalid requests
+if (!$isValid){
+    die('Invalid Async');
+}
+
+// Should have a UID
+if (!$_POST['uid']){
+    die('UID not found.');
+}
 
 // Check and call the functions
 switch ($callerFunction){
